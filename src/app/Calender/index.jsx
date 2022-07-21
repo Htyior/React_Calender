@@ -1,6 +1,7 @@
 import React, {useState, useMemo} from "react";
 import moment from "moment";
 import "./styles.css";
+import { useEffect } from "react";
 
 function getAllDaysInMonth(year, month) {
     const date = new Date(year, month, 1);
@@ -20,22 +21,16 @@ export default function Calender(){
     const years = ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028"]
     const daysInMonth30 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
     const daysInMonth31 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-    let dayss = "";
 
     const today = moment().format('DD');
     const month = moment().format('MM');
     const year = moment().format('YYYY');
-    const startOfMonth = moment().clone().startOf('month').format('YYYY-MM-DD hh:mm');
-    const firstDayOfMonth = moment().startOf('month')
 
     const beforeMonth = [];
     const afterMonth = [];
 
     const date = new Date();
     date.setDate(1);
-
-    const lastDay = new Date(date.getFullYear(),
-    date.getMonth() + 1, 0).getDate();
 
     const prevLastDay = new Date(date.getFullYear(),
     date.getMonth() + 1, 0).getDate();
@@ -51,6 +46,7 @@ export default function Calender(){
 
     const [monthh, setMonth] = useState(month)
     const [yearr, setYear] = useState(year)
+
 
 function daysInMonthDays() {
     if (daysInMonthj === 31){
@@ -68,13 +64,14 @@ function daysInMonthDays() {
         }
       }
 
+  {/*pushing Days in last month in array*/}
 for (let x=firstDayIndex; x>0; x--){
   beforeMonth.push(prevLastDay - x + 1)
 }
 
-for (let j=1; j<=nextDays; j++){
-  afterMonth.push(days)
-  console.log(afterMonth)
+  {/*pushing Days in next month in array*/}
+for (let j=1; j<=nextDays + 1; j++){
+  afterMonth.push(j)
 }
 
     return(
@@ -116,6 +113,7 @@ for (let j=1; j<=nextDays; j++){
                     </div>
 
                     <div>
+                            {/*Days in last month but same week*/}
                     {
                       beforeMonth.map((beforeDay) =>
                       <div className="dayOtherMonth">
@@ -123,11 +121,21 @@ for (let j=1; j<=nextDays; j++){
                       </div>
                       )}
 
+                            {/*Days in current month*/}
                             {daysInMonthDays()}
-                            {console.log(firstDayOfMonth)}
+
+
+                            {/*Days in next month but same*/}
+                      {
+                        afterMonth.map((afterDay) =>
+                        <div className="dayOtherMonth">
+                          {afterDay}
+                        </div>
+                        )}
 
                     </div>
                     
+                            {/*Buttons*/}
                 </div>
                 <button className="button1">Cancle</button>
                 <button className="button2" onClick={() => console.log(1)}>From Date</button>

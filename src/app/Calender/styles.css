@@ -105,7 +105,6 @@
     top: 48px;
     left: 20px;
     justify-content: center;
-    text-align: center;
 }
 
 .dayOtherMonth{
@@ -118,8 +117,6 @@
     justify-content: center;
     color: #797A7F;
 }
-
-
 
 .selected{
     position: relative;
